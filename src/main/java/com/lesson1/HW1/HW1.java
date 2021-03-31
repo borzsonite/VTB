@@ -15,14 +15,16 @@ package com.lesson1.HW1;
 
 public class HW1 {
     public static void main(String[] args) {
-        Animal[] animals = {new Dog("Bobik"), new Dog("Tuzik"), new Cat("Vaska"), new Tiger("Sharhan")};
+        Animal[] animals = {
+                new Dog("Собака", "Бобик", 500, 50),
+                new Dog("Собака", "Тузик", 500, 50),
+                new Tiger("Тигра", 500, 50)
+        };
+
         for(Animal animal: animals) {
             animal.run(300);
             animal.swim(10);
         }
 
-        System.out.println("Dog's count: " + Dog.getCount());
-        System.out.println("Cat's count: " + Cat.getCount());
-        System.out.println("Tiger's count: " + Tiger.getCount());
     }
 }
