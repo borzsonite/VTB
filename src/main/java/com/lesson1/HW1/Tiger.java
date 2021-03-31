@@ -1,22 +1,34 @@
 package com.lesson1.HW1;
 
 public class Tiger extends Animal{
-    int runLimit = 1000;
-    int swimLimit = 500;
+    static int count;
+
+    public Tiger(String name) {
+        this.name = name;
+        this.runLimit = 1000;
+        this.swimLimit = 500;
+        count++;
+    }
 
     @Override
     void run(int distance) {
         if(distance > runLimit) {
-            System.out.println("Can't run so far");
+            System.out.println("Tiger " + name + " can't run so far");
+            return;
         }
-        System.out.printf("Tiger ran "+ distance);
+        System.out.println("Tiger " + name + " swam "+ distance);
     }
 
     @Override
     void swim(int distance) {
         if(distance > swimLimit) {
-            System.out.println("Can't swim so far");
+            System.out.println("Tiger " + name + " can't swim so far");
+            return;
         }
-        System.out.printf("Tiger swam "+ distance);
+        System.out.println("Tiger " + name + " swam "+ distance);
+    }
+
+    static int getCount() {
+        return count;
     }
 }
