@@ -1,4 +1,4 @@
-package com.lesson2.interfaceExample;
+package com.lesson2.defaultMethodExample;
 
 public class Programmer implements WriteCode{
     @Override

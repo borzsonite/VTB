@@ -23,7 +23,7 @@ public class HW1 {
 
         for(Animal animal: animals) {
             animal.run(300);
-            animal.swim(10);
+            animal.swim(100);
         }
 
     }
