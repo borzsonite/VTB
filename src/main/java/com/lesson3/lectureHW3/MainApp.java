@@ -51,7 +51,7 @@ public class MainApp {
                 try{
                     sum += Integer.parseInt(data[i][j]);
                 } catch (NumberFormatException e) {
-                    throw new MyArrayDataException("Ошибка данных! " + "column:" + i + " row:" + j);
+                    throw new MyArrayDataException(i,j);
                 }
             }
         }
