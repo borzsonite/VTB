@@ -28,9 +28,5 @@ class Runner {
     public static void main(String[] args) {
         GenBox2<Integer> gbx2 = new GenBox2<Integer>(1,2,3,4 );
         System.out.println(gbx2.sum());
-
-        GenBox2<Integer>.doAction(new ArrayList<Integer>(1,2,3));
-        List<Integer> myList = new ArrayList<Integer>(1,2,3);
-
     }
 }

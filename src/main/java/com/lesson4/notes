@@ -1,5 +1,0 @@
-1. В  дженериках наследование не работает, те.  писать нельзя: GenBox<Number> gbx = new GenBox<Integer>(123); в правой части выражения должен быть тот же тип, что и в левой GenBox<Integer> gbx = new GenBox<Integer>(123);
-
-2. public static void doSomething(GenBox<? super Number>) {} означает что метод принимает GenBox параметризованый Number или его родителями.
-
-3.

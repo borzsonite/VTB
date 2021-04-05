@@ -38,7 +38,7 @@ public class MainApp {
     static int dataProcceed(String[][] data) throws MyException {
         int sum = 0;
         if (data.length < 4) {
-            throw new MyArraySizeException("Непраильный размер массива");
+            throw new MyArraySizeException("Неправильный размер массива");
         }
         for (int i = 0; i < 4; i++) {
             if (data[i].length < 4) {
