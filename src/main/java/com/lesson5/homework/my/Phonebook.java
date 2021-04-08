@@ -16,37 +16,22 @@ import java.util.*;
 public class  Phonebook {
     private Map<String, ArrayList<String>> data = new HashMap<>();
 
-    public void add(String name, String phone) {
-        if(data.containsKey(name)) {
-             data.get(name).add(phone);
-        }
-        data.put(name, );
+    void add(String name, String number) {
+        data.putIfAbsent(name, new ArrayList<>()); // если пары нет, добавляем
+        data.get(name).add(number); // тут это имя уже есть, по любому и в него добавляется телефон
     }
 
-    public List<String> get(String name) {
-        List<String> result = new ArrayList<>();
-        data.forEach((key, value) -> {
-            if(value.equals(name)) {
-                result.add(name+":"+key + "\n");
-            }
-        });
-        return result;
+    ArrayList<String> get(String name) {
+        return data.getOrDefault(name, new ArrayList<>()); // возвращается либо лист по имеющейся фамилии, либо пустой лист
     }
-}
 
-class   AppRunner {
     public static void main(String[] args) {
         Phonebook phonebook = new Phonebook();
-        phonebook.add("Bob", "12345");
-        phonebook.add("Jhon", "54321");
-        phonebook.add("Mike", "67891");
-        phonebook.add("Kate", "32165");
-        phonebook.add("Lory", "54986");
-        phonebook.add("Bob", "98756");
-        phonebook.add("Bob", "98787");
+        phonebook.add("Jhon", "12345");
+        phonebook.add("Jhon1", "123456");
+        phonebook.add("Jhon2", "123457");
+        phonebook.add("Jhon", "123458");
 
-        System.out.println(phonebook.get("Bob"));
+        System.out.println(phonebook.get("Jhon1"));
     }
-
-
 }
