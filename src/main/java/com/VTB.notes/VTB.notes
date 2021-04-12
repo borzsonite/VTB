@@ -154,7 +154,49 @@ void doSomething() {
 /////////////////Lesson6//////////////////////
 48. Поток демон будет работать пока работает хотя бы один обычный Поток. Как только все обычные Потоки завершаться демон тоже завершается.
 
+49. Для остановки потока испльзуется метод thread.interupt(), затем в безопасном месте кода делается проверка на thread.isinterupted(), если возвращается true делается выход из потока.
 
+50. При испольовании synchronized при вызове метода в качестве монитора испльзуется this, ie объект на котором был вызван метод.
+
+51. Смысл обработки InteruptedException в том, что кто-то может попытаться оставновить поток который в данный момент недоступен (спит) в этом случае нужно предпринять какие то действия.
+
+52. Синхронизированным можно делать не весь, а часть метода,
+
+public class Test1 {
+    Object monitor = new Object();
+
+    public static void main(String[] args) {
+        Test1 monitor = new Test1();
+        new Thread(() -> monitor.method()).start();
+        new Thread(() -> monitor.method()).start();
+        new Thread(() -> monitor.method()).start();
+
+    }
+
+    public void  method() {
+        // non synchronized block --> сюда зайдут три потока одновременно !!!!!!!!!!!!!!
+        System.out.println(Thread.currentThread().getName() + " non sync starts");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // synchronized block --> а сюда только по очереди !!!!!!!!!!!!!!
+        synchronized (monitor) {
+            System.out.println(Thread.currentThread().getName() + " sync starts");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+53. Если метод статический, то в качестве монитора выступает сам класс и доступ к такому методу одномоментно имеет только один поток.
+
+54. 
 
 /////////////////ВОПРОСЫ//////////////////
 1. Когда инициализируются статические поля и методы, когда в память загружается класс?
