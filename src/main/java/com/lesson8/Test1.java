@@ -1,5 +1,8 @@
 package com.lesson8;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -67,8 +70,25 @@ public class Test1 {
         System.out.println("mapToInt example");
         Stream.of(new User2("Bob", 20)).mapToInt(User2::getAge).forEach(System.out::println);
 
+        // Задача посчитать длину каждой строки в файле
+        System.out.println("Задача посчитать длину каждой строки в файле");
+        try {
+           Files.lines(Paths.get("123.txt")).map(String::length).forEach(System.out::println); // .lines() возвращает стрим Стрингов
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        //Задача посчитать количество уникальных слов в строке.
+        System.out.println("Задача посчитать количество уникальных слов в строке.");
+       long count =  Stream.of("aa bb cc aa b b".split("\\s")).distinct().count();
+        System.out.println("---------------------------------------------------------");
+        Stream.of("aa bb cc aa b b".split("\\s")).distinct().forEach(System.out::println);
 
+        System.out.println(count);
+
+        // Задача вывести уникальные элементы, разделенные запятыми, с префиксом - "Уникальные данные" и суффиксом - точкой.
+        System.out.println("Задача вывести уникальные элементы, разделенные запятыми, с префиксом - \"Уникальные данные\" и суффиксом - точкой. ");
+        System.out.println(Stream.of("a", "b", "c", "a","b", "d").distinct().collect(Collectors.joining(",", "Уникальные данные:", ".")));
 
 
 
