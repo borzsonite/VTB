@@ -271,7 +271,7 @@ Stream.of(new User2("Bob", 20)).mapToInt(User2::getAge).forEach(System.out::prin
 
 ///////////////////////////lesson 9 Reflection API
 
-77. Существует 3 способа получить объект типа Class:
+77. Начальной точкой работы с рефлешн api является получение ссылки на объект Class. Существует 3 способа получить объект типа Class:
       Class stringClass1 = "Java".getClass();
       Class stringClass2 = String.class;
       Class stringClass3 = Class.forName("java.lang.String");
@@ -280,7 +280,7 @@ Stream.of(new User2("Bob", 20)).mapToInt(User2::getAge).forEach(System.out::prin
 
 79. Class.getMethods() возвращает массив всех публичных методы объявленных в классе (включая унаследованные)
 
-80. Вызвать метод через рефлекшен можно так: method[0].invoke(cat), где Cat cat = new Cat(), method[0] метод возвращенный .getDeclaredMethods() или .getMethods();
+80. Вызвать метод через рефлекшен можно так: method[0].invoke(cat), где Cat cat = new Cat() - конкретный объект метод которого вызывается, method[0] метод возвращенный через .getDeclaredMethods() или .getMethods() т.е. элемент массива методов Класса;
 
 81.   Получение модификаторов
        int mod = methods[0].getModifiers(); // methods[0] получили через Class.getDeclaredMethods()
@@ -386,3 +386,11 @@ Stream.of(new User2("Bob", 20)).mapToInt(User2::getAge).forEach(System.out::prin
 73. ДЛя чего служит .skip(n) ?
 74. Как посчитать длину каждой строки в файле?
 75. Как посчитать количество уникальных слов в строке?
+76. Для чего служат методы .limit(n) .skip(n) ?
+77. С чего начинается работа с рефлекшн api? Три способа получить ссылку на Class?
+78. Что возвращает Class.getDeclaredMethods() ?
+79. Что возвращает Class.getMethods() ?
+80. Как вызвать метод у объекта через рефлекшн?
+81. Как плучить модификаторы членов у объекта?
+82. Как получить массив полей объекта?
+83.
