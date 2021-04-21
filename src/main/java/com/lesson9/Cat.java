@@ -13,6 +13,9 @@ public class Cat {
         this.protectedField = protectedField;
     }
 
+    public Cat() {
+    }
+
     public void publicMeow() {
         System.out.println("publicMeow");
     }

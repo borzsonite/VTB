@@ -293,6 +293,26 @@ Stream.of(new User2("Bob", 20)).mapToInt(User2::getAge).forEach(System.out::prin
 
 83. Все операции с полями аналогчны операциям с методами.
 
+84. Создание объектов возмжно через (Class) Class.newInstance(), напр.
+    Cat cat2 = (Cat) catClass.newInstance(); // создание объекта у которого есть дефолтный конструктор (или без параметров)
+
+85. Если необходимо создать объект у которого конструктор принимает параметры, сделать это можно передава в .getConstructor() и .newInstace() необходимые парметры.
+        Cat cat3  = (Cat) catClass.getConstructor(int.class, int.class, int.class, int.class)
+                .newInstance(20, 300, 40, 50); // вызывается конструктор с 4-мя параметрами.
+        System.out.println(cat3);
+
+86. За загрузку классов в java отвечают ClassLoader'ы, например
+ClassLoader classLoader = new URLClassLoader(new URL[] {new File("C:\\Users\\Alpha\\Documents\\java").toURL()}); // загрузка класса находящегося в папке C:\Users\Alpha\Documents\java
+
+87. После загрузки класса с ним можно начинать работать:
+        ClassLoader classLoader = new URLClassLoader(new URL[] {new File("C:\\Users\\Alpha\\Documents\\java").toURL()}); // загружаем классы находящиеся по указанному пути
+        Class humanClass = classLoader.loadClass("Human"); // получаем ссылку на объект Class класса Human
+        Object humanObject = humanClass.getConstructor(String.class, int.class).newInstance("Bob", 30); // создаем объект класса Human и ссылаем его на Object
+        Method[] method = humanObject.getClass().getDeclaredMethods(); // получаем методы у класса Human
+        method[0].invoke(humanObject); // вызываем метод у Human
+
+88.
+
 
 
 
