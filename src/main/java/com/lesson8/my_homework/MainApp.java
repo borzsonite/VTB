@@ -29,18 +29,26 @@ public class MainApp {
 
         };
 
+        //  * 2. Создайте массив объектов типа Сотрудник (с полями Имя, Возраст, Зарплата) и вычислите
+        // * среднюю зарплату сотрудника;
         double res = Arrays.stream(users).mapToInt(User::getSalary).average().getAsDouble();
         System.out.println(res);
+
 
         getNOldestUsers(users, 3);
     }
 
+
+   //  3. Напишите метод, способный найти в массиве сотрудников из п. 2 найдите N самых старших
+   //  сотрудников и отпечатает в консоль сообщение вида “N самых старших сотрудников зовут:
+   //  имя1, имя2, имяN;”.
    static void getNOldestUsers(User[] users, int n) {
 
         String res = Arrays.stream(users)
                .sorted(Comparator.comparingInt(User::getAge))
-               .skip(Math.abs(n-users.length)).map(o -> o.getName())
-               .collect(Collectors.joining(",", "N самых старших сотрудников зовут:", ";"));
+               .skip(Math.abs(n-users.length))
+               .map(o -> o.getName())
+               .collect(Collectors.joining(", ", n + " самых старших сотрудников зовут: ", ";"));
        System.out.println(res);
     };
 }

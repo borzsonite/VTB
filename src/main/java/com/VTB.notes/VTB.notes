@@ -267,6 +267,34 @@ Stream.of(new User2("Bob", 20)).mapToInt(User2::getAge).forEach(System.out::prin
 
 75. Работа со строками через стрим. Задача посчитать количество уникальных слов в строке.
 
+76. .limit(n) оставляет n первых элементов стрима, .skip(n) пропускает n первых элементов и оставляет оставшиеся
+
+///////////////////////////lesson 9 Reflection API
+
+77. Существует 3 способа получить объект типа Class:
+      Class stringClass1 = "Java".getClass();
+      Class stringClass2 = String.class;
+      Class stringClass3 = Class.forName("java.lang.String");
+
+78. Class.getDeclaredMethods() возвращает массив всех методов объявленных в классе (кроме унаследованных)
+
+79. Class.getMethods() возвращает массив всех публичных методы объявленных в классе (включая унаследованные)
+
+80. Вызвать метод через рефлекшен можно так: method[0].invoke(cat), где Cat cat = new Cat(), method[0] метод возвращенный .getDeclaredMethods() или .getMethods();
+
+81.   Получение модификаторов
+       int mod = methods[0].getModifiers(); // methods[0] получили через Class.getDeclaredMethods()
+       System.out.println("is static: " + Modifier.isStatic(mod));
+       System.out.println("is final: " + Modifier.isFinal(mod));
+       System.out.println("is private: " + Modifier.isPrivate(mod));
+       System.out.println("is public: " + Modifier.isPublic(mod));
+
+82. Получение массива полей  Field[] fields = catClass.getDeclaredFields();
+
+83. Все операции с полями аналогчны операциям с методами.
+
+
+
 
 
 
