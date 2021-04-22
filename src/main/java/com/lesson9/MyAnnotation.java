@@ -8,5 +8,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME) // Аннотацию можно использовать в runtime
 @Target(ElementType.METHOD) // В качестве таргета - метод.
 public @interface MyAnnotation {
+    int priority() default  5;
 
 }

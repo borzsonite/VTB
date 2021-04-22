@@ -296,7 +296,7 @@ Stream.of(new User2("Bob", 20)).mapToInt(User2::getAge).forEach(System.out::prin
 84. Создание объектов возмжно через (Class) Class.newInstance(), напр.
     Cat cat2 = (Cat) catClass.newInstance(); // создание объекта у которого есть дефолтный конструктор (или без параметров)
 
-85. Если необходимо создать объект у которого конструктор принимает параметры, сделать это можно передава в .getConstructor() и .newInstace() необходимые парметры.
+85. Если необходимо создать объект у которого конструктор принимает параметры, сделать это можно передав в .getConstructor() и .newInstace() необходимые парметры.
         Cat cat3  = (Cat) catClass.getConstructor(int.class, int.class, int.class, int.class)
                 .newInstance(20, 300, 40, 50); // вызывается конструктор с 4-мя параметрами.
         System.out.println(cat3);
@@ -311,7 +311,22 @@ ClassLoader classLoader = new URLClassLoader(new URL[] {new File("C:\\Users\\Alp
         Method[] method = humanObject.getClass().getDeclaredMethods(); // получаем методы у класса Human
         method[0].invoke(humanObject); // вызываем метод у Human
 
-88.
+88. Аннотация выглядит следующим образом:
+
+    @Retention(RetentionPolicy.RUNTIME) // Аннотацию можно использовать в runtime
+    @Target(ElementType.METHOD) // В качестве таргета - метод.
+    public @interface MyAnnotation {
+        int priority() default 5; // в аннотацию можно подшивать доплнительную информацию в виде параметров.
+    }
+
+89. Вместо priority в качестве дополнительного параметра можно указывть timeout, времы выполнения и многое другое
+
+90. Обратиться к параметрам аннотации можно чере конструкцию:
+    classMember.getAnnotation(MyAnnotation.class).priority(), где classMember - поле или метод, priority() - параметр
+
+91. jdbc представляет собой набор интерфейсов для взаимодействия с базами данных sql
+
+91.
 
 
 
@@ -413,4 +428,12 @@ ClassLoader classLoader = new URLClassLoader(new URL[] {new File("C:\\Users\\Alp
 80. Как вызвать метод у объекта через рефлекшн?
 81. Как плучить модификаторы членов у объекта?
 82. Как получить массив полей объекта?
-83.
+83. В чем отличие операций с полями от операций с методами?
+84. Как создать объект через рефлектион?
+85. Как создать объект через конструктор с парметрами?
+86. Как загрузить класс не являющийся частью проекта?
+87. Алгоритм работы с загруженным классом?
+88. Из чего состоит аннотация?
+89. Что можно указать в качестве параметра у аннотации?
+90. Как обратиться к параметру аннотации?
+91. Что   представляет собой jdbc?

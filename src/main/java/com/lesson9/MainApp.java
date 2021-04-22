@@ -6,7 +6,12 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MainApp {
     public static void main(String[] args) throws Exception {
@@ -72,7 +77,7 @@ public class MainApp {
 
         //  ОБращение к классу находящемуся вовне проекта
         System.out.println("---------------ОБращение к классу находящемуся вовне проекта------------");
-        ClassLoader classLoader = new URLClassLoader(new URL[]{new File("C:\\Users\\Alpha\\Documents\\java").toURL()});
+        ClassLoader classLoader = new URLClassLoader(new URL[]{new File("C:\\Users\\Serge\\Documents\\Java").toURL()});
         Class humanClass = classLoader.loadClass("Human");
         Object humanObject = humanClass.getConstructor(String.class, int.class).newInstance("Bob", 30);
         Method[] method = humanObject.getClass().getDeclaredMethods();
@@ -85,8 +90,20 @@ public class MainApp {
         Method[] testClassMethods = testClass.getDeclaredMethods();
         for (Method m : testClassMethods) {
             if(m.isAnnotationPresent(MyAnnotation.class)) {
-                m.invoke(testClass);
+                m.invoke(null);
             }
+        }
+
+        //  Работа с аннотациями и дополнительными параметрами
+        System.out.println("");
+        System.out.println("---------------Работа с аннотациями и дополнительными параметрами------------");
+        List<Method> methodList;
+        methodList = Arrays.stream(testClassMethods)
+                .filter(o -> o.isAnnotationPresent(MyAnnotation.class))
+                .sorted((o1, o2) -> o2.getAnnotation(MyAnnotation.class).priority()-o1.getAnnotation(MyAnnotation.class).priority())
+                .collect(Collectors.toList());
+        for(Method m: methodList) {
+            m.invoke(null);
         }
     }
 }
