@@ -326,7 +326,7 @@ ClassLoader classLoader = new URLClassLoader(new URL[] {new File("C:\\Users\\Alp
 
 91. jdbc представляет собой набор интерфейсов для взаимодействия с базами данных sql
 
-91. Алгоритм работы с БД через идеа следующий:
+92. Алгоритм работы с БД через идеа следующий:
     - подключаем jdbc драйвер -> pom.xml -> <dependencies> <dependency> копируем код с рипозитория мавена sqlite-jdbc
     - создаем поля для конекшена и стейтмента:
         - Connection connection;
@@ -341,17 +341,17 @@ ClassLoader classLoader = new URLClassLoader(new URL[] {new File("C:\\Users\\Alp
         - закрываем в обратном порядке, сначала стейтмент statement.close()
         - connection.close
 
-92. В методе main() вызываем .connect()
+93. В методе main() вызываем .connect()
 
-93. Обращение к базе происходит через стейтмент после коннекта к базе, напр: statement.executeUpdate("комманда SQL")
+94. Обращение к базе происходит через стейтмент после коннекта к базе, напр: statement.executeUpdate("комманда SQL")
 
-94. .executeUpdate("комманда SQL") возвращает интовое значение соответствующее количеству строк подвергшихся изменению
+95. .executeUpdate("комманда SQL") возвращает интовое значение соответствующее количеству строк подвергшихся изменению
 
-95. В ответ на запрос в любом случае возвращается таблица, котрая запсывается в ResultSet
+96. В ответ на запрос в любом случае возвращается таблица, котрая запсывается в ResultSet
 
-96. ResultSet.next() возвращает true если запись в таблице содержит значения, либо false если значений нет. Т.е. пока rs.next() == true, в таблице есть значения, как только rs.next() == false значит значений нет.
+97. ResultSet.next() возвращает true если запись в таблице содержит значения, либо false если значений нет. Т.е. пока rs.next() == true, в таблице есть значения, как только rs.next() == false значит значений нет.
 
-97. Алгоритм печати таблицы полученной в ResultSet:
+98. Алгоритм печати таблицы полученной в ResultSet:
       try(ResultSet rs = statement.executeQuery("SELECT * from students")) {
           while(rs.next()) {
              System.out.println(rs.getInt(1) + " " + rs.getString("name") + " " + rs.getInt(3));
@@ -362,7 +362,7 @@ ClassLoader classLoader = new URLClassLoader(new URL[] {new File("C:\\Users\\Alp
         } // в getInt() , getString() можно передавать либо имя столбца, либо его номер.
        }
 
-98. Алгоритм вставки в таблицу
+99. Алгоритм вставки в таблицу
         static void tableInsert() {
             try {
                 statement.executeUpdate("INSERT INTO students (name, score) VALUES ('Bob4', 100);");
@@ -371,7 +371,7 @@ ClassLoader classLoader = new URLClassLoader(new URL[] {new File("C:\\Users\\Alp
             }
         }
 
-99. Алгоритм обновления данных в таблице
+100. Алгоритм обновления данных в таблице
         static void tableUpdate() {
             // обновление данных в таблице
             try {
@@ -381,7 +381,7 @@ ClassLoader classLoader = new URLClassLoader(new URL[] {new File("C:\\Users\\Alp
             }
         }
 
-100. Алгоритм очистки таблицы
+101. Алгоритм очистки таблицы
         static void tableClear() {
              try {
                  statement.executeUpdate("DELETE FROM students");
@@ -391,7 +391,7 @@ ClassLoader classLoader = new URLClassLoader(new URL[] {new File("C:\\Users\\Alp
          }
 
 
-101. Алгоритм удаления записи из таблицы
+102. Алгоритм удаления записи из таблицы
          static void tableDelete() {
              try {
                  statement.executeUpdate("DELETE FROM students WHERE id = 4");
@@ -400,7 +400,7 @@ ClassLoader classLoader = new URLClassLoader(new URL[] {new File("C:\\Users\\Alp
              }
          }
 
-102. Работа с PreparedStatement
+103. Работа с PreparedStatement
     - У класса задается поле private static PreparedStatement preparedStatement;
     - в методе .connect() создается шаблон:
     preparedStatement = connection.prepareStatement("INSERT INTO students (name, score) VALUES (?,?); ");
@@ -409,9 +409,9 @@ ClassLoader classLoader = new URLClassLoader(new URL[] {new File("C:\\Users\\Alp
         preparedStatement.setInt(2, 50); // 2- индекс параметра
         preparedStatement.executeUpdate(); // запуск на выполнение
 
-103. При работе с PreparedStatement в случае если точно не известен тип значения в ячейке, то вместо setInt(), setString() можно указывать setObject();
+104. При работе с PreparedStatement в случае если точно не известен тип значения в ячейке, то вместо setInt(), setString() можно указывать setObject();
 
-104. Для ускорения скорости транзакций можно отключать автокомит
+105. Для ускорения скорости транзакций можно отключать автокомит
        connection.setAutoCommit(false); // отключили вызов комита для каждой транзакции
             for(int i=0; i<10000; i++) {
                preparedStatement.setString(1, "Bob"+ i);
@@ -422,7 +422,7 @@ ClassLoader classLoader = new URLClassLoader(new URL[] {new File("C:\\Users\\Alp
     + в увеличении скорости
     - возможная потеря данных, если произойдет сбой, на 9999 транзакции никакие данные в таблицу не запишутся.
 
-105.
+106.
 
 
 
@@ -529,3 +529,17 @@ ClassLoader classLoader = new URLClassLoader(new URL[] {new File("C:\\Users\\Alp
 89. Что можно указать в качестве параметра у аннотации?
 90. Как обратиться к параметру аннотации?
 91. Что   представляет собой jdbc?
+92. Алгоритм подключеия БД в идеа?
+93. Что вызывается в .main() для подключения?
+94. Через что происходит обращение и работа с БД?
+95. Что возвращает .executeUpdate("комманда SQL") ?
+96. Что записывает в ResultSet?
+97. Что возвращает ResultSet.next()? До какого момента можно обходить БД?
+98. Как вывести таблицу из ResultSet?
+99. Алгоритм вставки в таблицу?
+100. Алгоритм обновления записи в таблице?
+101. Алгоритм очистки таблицы?
+102. Алгоритм удаления записи из таблицы?
+103. Что такое PreparedStatement, как с ним работать?
+104. Что можно указать в setInt(), setString() если неизвестен тип данных в ячейке?
+105. Что можно сделать для ускорения скорости транзакций?
