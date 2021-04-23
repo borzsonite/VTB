@@ -326,11 +326,103 @@ ClassLoader classLoader = new URLClassLoader(new URL[] {new File("C:\\Users\\Alp
 
 91. jdbc представляет собой набор интерфейсов для взаимодействия с базами данных sql
 
-91.
+91. Алгоритм работы с БД через идеа следующий:
+    - подключаем jdbc драйвер -> pom.xml -> <dependencies> <dependency> копируем код с рипозитория мавена sqlite-jdbc
+    - создаем поля для конекшена и стейтмента:
+        - Connection connection;
+        - Statement statement;
+    - создаем два метода .connect() .disconnect() в которых прописываем логику.
+    - в .connect() в блоке try
+        - Class.forName("org.sqlite.JDBC"); // загружаем драйвер
+        - connection = DriverManager.getConnection("jdbc:sqlite:main.db"); // создаем коннекшн
+        - statement = connection.createStatement(); // создаем стейтмент
+        - в catch ловим ClassNotFoundException | SQLException e
+    - в .disconnect()
+        - закрываем в обратном порядке, сначала стейтмент statement.close()
+        - connection.close
+
+92. В методе main() вызываем .connect()
+
+93. Обращение к базе происходит через стейтмент после коннекта к базе, напр: statement.executeUpdate("комманда SQL")
+
+94. .executeUpdate("комманда SQL") возвращает интовое значение соответствующее количеству строк подвергшихся изменению
+
+95. В ответ на запрос в любом случае возвращается таблица, котрая запсывается в ResultSet
+
+96. ResultSet.next() возвращает true если запись в таблице содержит значения, либо false если значений нет. Т.е. пока rs.next() == true, в таблице есть значения, как только rs.next() == false значит значений нет.
+
+97. Алгоритм печати таблицы полученной в ResultSet:
+      try(ResultSet rs = statement.executeQuery("SELECT * from students")) {
+          while(rs.next()) {
+             System.out.println(rs.getInt(1) + " " + rs.getString("name") + " " + rs.getInt(3));
+            }
+                }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } // в getInt() , getString() можно передавать либо имя столбца, либо его номер.
+       }
+
+98. Алгоритм вставки в таблицу
+        static void tableInsert() {
+            try {
+                statement.executeUpdate("INSERT INTO students (name, score) VALUES ('Bob4', 100);");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+99. Алгоритм обновления данных в таблице
+        static void tableUpdate() {
+            // обновление данных в таблице
+            try {
+                statement.executeUpdate("UPDATE students SET  score = 200 WHERE id = 1");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+100. Алгоритм очистки таблицы
+        static void tableClear() {
+             try {
+                 statement.executeUpdate("DELETE FROM students");
+             } catch (SQLException e) {
+                 e.printStackTrace();
+             }
+         }
 
 
+101. Алгоритм удаления записи из таблицы
+         static void tableDelete() {
+             try {
+                 statement.executeUpdate("DELETE FROM students WHERE id = 4");
+             } catch (SQLException e) {
+                 e.printStackTrace();
+             }
+         }
 
+102. Работа с PreparedStatement
+    - У класса задается поле private static PreparedStatement preparedStatement;
+    - в методе .connect() создается шаблон:
+    preparedStatement = connection.prepareStatement("INSERT INTO students (name, score) VALUES (?,?); ");
+    - в методе .main() делается обращение к preparedStatement:
+        preparedStatement.setString(1, "Bob"+ i); // 1- индекс параметра
+        preparedStatement.setInt(2, 50); // 2- индекс параметра
+        preparedStatement.executeUpdate(); // запуск на выполнение
 
+103. При работе с PreparedStatement в случае если точно не известен тип значения в ячейке, то вместо setInt(), setString() можно указывать setObject();
+
+104. Для ускорения скорости транзакций можно отключать автокомит
+       connection.setAutoCommit(false); // отключили вызов комита для каждой транзакции
+            for(int i=0; i<10000; i++) {
+               preparedStatement.setString(1, "Bob"+ i);
+               preparedStatement.setInt(2, 50);
+               preparedStatement.executeUpdate();
+            }
+       connection.commit(); сделали коммит для всех запросов
+    + в увеличении скорости
+    - возможная потеря данных, если произойдет сбой, на 9999 транзакции никакие данные в таблицу не запишутся.
+
+105.
 
 
 
