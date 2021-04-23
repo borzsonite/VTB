@@ -422,8 +422,25 @@ ClassLoader classLoader = new URLClassLoader(new URL[] {new File("C:\\Users\\Alp
     + в увеличении скорости
     - возможная потеря данных, если произойдет сбой, на 9999 транзакции никакие данные в таблицу не запишутся.
 
-106.
+106. Также транзакции можно предварительно аккумулировать с помощью .addBatch() и затем комитить сразу все пачку запросов
+        static void preparedStatementBatchEx() {
+            try {
+                for(int i=0; i<10000; i++) {
+                    preparedStatement.setString(1, "Bob"+ i);
+                    preparedStatement.setInt(2, 50);
+                    preparedStatement.addBatch(); // добавляем в batch
+                }
+                preparedStatement.executeBatch(); // выполняем batch
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
+107. В код можно вставлять точки сохранения после выплнения запроса и делать к ним откаты, например:
+       statement.executeUpdate("INSERT INTO students (name, score) VALUES ('Bob1', 1000);");
+        Savepoint sp1 = connection.setSavepoint(); // точка сохранения
+        statement.executeUpdate("INSERT INTO students (name, score) VALUES ('Bob2', 1000);");
+        connection.rollback(sp1); // откат к sp1
 
 
 

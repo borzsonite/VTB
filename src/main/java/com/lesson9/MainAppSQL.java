@@ -15,7 +15,8 @@ public class MainAppSQL {
             //tableUpdate();
             //tableDelete();
             // preparedStatementEx();
-            preparedStatementBatchEx();
+            // preparedStatementBatchEx();
+            savePoint();
 
 
         } catch (SQLException e) {
@@ -97,13 +98,13 @@ public class MainAppSQL {
             tableClear();
             long time = System.currentTimeMillis();
             connection.setAutoCommit(false);
-            for(int i=0; i<10000; i++) {
-                preparedStatement.setString(1, "Bob"+ i);
+            for (int i = 0; i < 10000; i++) {
+                preparedStatement.setString(1, "Bob" + i);
                 preparedStatement.setInt(2, 50);
                 preparedStatement.executeUpdate();
             }
             connection.commit();
-            System.out.println(System.currentTimeMillis()-time);
+            System.out.println(System.currentTimeMillis() - time);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -114,18 +115,31 @@ public class MainAppSQL {
         try {
             tableClear();
             long time = System.currentTimeMillis();
-           connection.setAutoCommit(false);
-            for(int i=0; i<10000; i++) {
-                preparedStatement.setString(1, "Bob"+ i);
+            connection.setAutoCommit(false);
+            for (int i = 0; i < 10000; i++) {
+                preparedStatement.setString(1, "Bob" + i);
                 preparedStatement.setInt(2, 50);
                 preparedStatement.addBatch();
             }
             preparedStatement.executeBatch();
             connection.commit();
-            System.out.println(System.currentTimeMillis()-time);
+            System.out.println(System.currentTimeMillis() - time);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
+    static void savePoint() {
+        tableClear();
+        try {
+            statement.executeUpdate("INSERT INTO students (name, score) VALUES ('Bob1', 1000);");
+            Savepoint sp1 = connection.setSavepoint();
+            statement.executeUpdate("INSERT INTO students (name, score) VALUES ('Bob2', 1000);");
+            connection.rollback(sp1);
+            statement.executeUpdate("INSERT INTO students (name, score) VALUES ('Bob3', 1000);");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
