@@ -513,7 +513,14 @@ SELECT name, score, CASE WHEN score > 79 THEN 'SUPER' WHEN score BETWEEN 60 AND 
 129. Создать таблицу в которой поле mark принимате значения в диапазоне от 2 до 5:
 CREATE TABLE progress (id serial, subject text, mark int CHECK (mark >=2 AND mark <=5));
 
-130.
+130. Создание таблице с уникальными записями в стобце:
+    CREATE TABLE demo (subject text UNIQUE, mark int, etc...) // в столбце subject будут только уникальыне значения, существует альтернативная запись:
+    CREATE TABLE demo (subject text , mark int, CONSTRAINT unique_subject UNIQUE (subject));
+
+131. Задание PRIMARY KEY:
+    CREATE TABLE demo (id serial, name TEXT, PRIMARY KEY (id));
+
+132.
 
 
 
