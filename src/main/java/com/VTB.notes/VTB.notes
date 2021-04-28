@@ -576,14 +576,20 @@ CREATE TABLE progress (id serial, subject text, mark int CHECK (mark >=2 AND mar
     - Read uncommitted допускается чтение незакомиченных данных
     -  Read committed допускается чтение только закомиченных данных
     -  Repeatable read транзакция не
+    - Serialazable результат последоватльного выполнения транзакций == результату парралельного выполнения
 
 148. Блокировка всей таблицы во время выполнения одной транзакции (для других транзакций)
     LOCK TABLE students IN ACCESS EXCLUSIVE MODE;
 
 149. Блокировка конкретной записи в таблице:
-    SELECT * FROM students WHERE id = 5; // блокировка записи с id = 5;
+    SELECT * FROM students WHERE id = 5 FOR UPDATE; // блокировка записи с id = 5;
 
-150.
+150. Создание индекса с именем name_idx в таблице students по колонке name
+    CREATE INDEX name_idx ON students (name);
+
+151. Механизм подключения hybernate и базы данных:
+    - в pom.xml в dependency подключаем hibernate-core
+    - в pom.xml в dependency подключаем драйвер базы данных, напр постгре
 
 
 
